@@ -4,7 +4,7 @@
 > **Bulk-delete your Google Gemini conversations — one click, fully local.**
 
 <p align="center">
-  <a href="https://addons.mozilla.org/firefox/addon/gemini-wiper-tool/"><img src="https://img.shields.io/amo/v/gemini-wiper-tool?style=for-the-badge&label=Firefox%20Add-ons&logo=firefox&logoColor=white&color=000000" alt="Firefox" /></a>
+  <a href="https://addons.mozilla.org/firefox/addon/gemini-wipe/"><img src="https://img.shields.io/amo/v/gemini-wipe?style=for-the-badge&label=Firefox%20Add-ons&logo=firefox&logoColor=white&color=000000" alt="Firefox" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-black?style=for-the-badge" alt="MIT" /></a>
   <img src="https://img.shields.io/badge/Privacy-100%25%20Local-black?style=for-the-badge&logo=shield&logoColor=white" alt="Privacy" />
 </p>
@@ -28,7 +28,7 @@
 
 ## Installation
 
-**AMO:** Search **Gemini Wiper Tool** on [addons.mozilla.org](https://addons.mozilla.org).
+**AMO:** [**Gemini Wipe**](https://addons.mozilla.org/firefox/addon/gemini-wipe/) on [addons.mozilla.org](https://addons.mozilla.org).
 
 **Manual — LibreWolf / Firefox:**
 
