@@ -1,0 +1,32 @@
+{
+  "name": "gemini-wiper",
+  "version": "1.0.0",
+  "description": "Firefox extension to bulk-delete all your Gemini conversations",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "icons": "node scripts/generate-icons.js",
+    "build": "npm run icons && npm run zip",
+    "zip": "node scripts/zip.js",
+    "lint": "web-ext lint --source-dir .",
+    "dev": "web-ext run --source-dir . --browser-console",
+    "sign": "web-ext sign --source-dir . --channel unlisted"
+  },
+  "devDependencies": {
+    "archiver": "^6.0.2",
+    "sharp": "^0.33.5",
+    "web-ext": "^8.10.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/systemdio/gemini-wiper.git"
+  },
+  "license": "MIT",
+  "allowScripts": {
+    "sharp@0.33.5": true,
+    "spawn-sync@1.0.15": true
+  }
+}

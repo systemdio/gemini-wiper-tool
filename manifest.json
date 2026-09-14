@@ -1,0 +1,64 @@
+{
+    "manifest_version":  3,
+    "name":  "Gemini Wiper",
+    "version":  "1.0.0",
+    "description":  "Bulk delete all your Gemini conversations with one click. Open source \u0026 privacy-friendly — no data leaves your browser.",
+    "author":  "Gemini Wiper contributors",
+    "homepage_url":  "https://github.com/systemdio/gemini-wiper",
+    "icons":  {
+                  "16":  "icons/icon16.png",
+                  "32":  "icons/icon32.png",
+                  "48":  "icons/icon48.png",
+                  "96":  "icons/icon96.png",
+                  "128":  "icons/icon128.png"
+              },
+    "action":  {
+                   "default_icon":  {
+                                        "16":  "icons/icon16.png",
+                                        "32":  "icons/icon32.png",
+                                        "48":  "icons/icon48.png",
+                                        "128":  "icons/icon128.png"
+                                    },
+                   "default_popup":  "popup/popup.html",
+                   "default_title":  "Gemini Wiper"
+               },
+    "permissions":  [
+                        "activeTab",
+                        "scripting",
+                        "storage",
+                        "tabs"
+                    ],
+    "host_permissions":  [
+                             "https://gemini.google.com/*"
+                         ],
+    "content_scripts":  [
+                            {
+                                "matches":  [
+                                                "https://gemini.google.com/*"
+                                            ],
+                                "js":  [
+                                           "content/content.js"
+                                       ],
+                                "css":  [
+                                            "content/content.css"
+                                        ],
+                                "run_at":  "document_idle"
+                            }
+                        ],
+    "background":  {
+                       "scripts":  [
+                                       "background/background.js"
+                                   ]
+                   },
+    "browser_specific_settings":  {
+                                      "gecko":  {
+                                                    "id":  "gemini-wiper@firefox-extension",
+                                                    "strict_min_version":  "128.0",
+                                                    "data_collection_permissions":  {
+                                                                                        "required":  [
+                                                                                                         "none"
+                                                                                                     ]
+                                                                                    }
+                                                }
+                                  }
+}
