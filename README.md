@@ -1,9 +1,10 @@
-# <img src="icons/icon48.png" width="28" height="28" align="center" /> Gemini Wiper
+<p align="center"><img src="icons/icon128.png" width="96" height="96" /></p>
+<h1 align="center">Gemini Wiper Tool</h1>
 
 > **Bulk-delete your Google Gemini conversations — one click, fully local.**
 
 <p align="center">
-  <a href="https://addons.mozilla.org/firefox/addon/gemini-wiper/"><img src="https://img.shields.io/amo/v/gemini-wiper?style=for-the-badge&label=Firefox%20Add-ons&logo=firefox&logoColor=white&color=000000" alt="Firefox" /></a>
+  <a href="https://addons.mozilla.org/firefox/addon/gemini-wiper-tool/"><img src="https://img.shields.io/amo/v/gemini-wiper-tool?style=for-the-badge&label=Firefox%20Add-ons&logo=firefox&logoColor=white&color=000000" alt="Firefox" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-black?style=for-the-badge" alt="MIT" /></a>
   <img src="https://img.shields.io/badge/Privacy-100%25%20Local-black?style=for-the-badge&logo=shield&logoColor=white" alt="Privacy" />
 </p>
@@ -14,27 +15,27 @@
 
 | | Feature | Detail |
 |---|---|---|
-| <img src="icons/icon16.png" width="16" height="16" /> | **One-click bulk delete** | Scan and delete 1 or 200+ conversations automatically |
+| <img src="icons/icon16.png" width="16" height="16" /> | **One-click bulk delete** | Scan & delete 1 or 200+ conversations automatically |
 | <img src="icons/icon16.png" width="16" height="16" /> | **Selective delete** | Check individual chats or All / None |
+| <img src="icons/icon16.png" width="16" height="16" /> | **Search & filter** | Instant filter by title |
+| <img src="icons/icon16.png" width="16" height="16" /> | **Export backup** | JSON export before deletion |
 | <img src="icons/icon16.png" width="16" height="16" /> | **Speed control** | Fast / Balanced / Safe + delay slider (50–400ms) |
-| <img src="icons/icon16.png" width="16" height="16" /> | **Stop anytime** | Abort mid-run instantly |
-| <img src="icons/icon16.png" width="16" height="16" /> | **Live overlay** | Floating progress bar on Gemini page |
-| <img src="icons/icon16.png" width="16" height="16" /> | **Full scan** | Auto-scrolls virtualized list until every conversation is found |
-| <img src="icons/icon16.png" width="16" height="16" /> | **100% local** | No telemetry, no network — stays in your browser |
-| <img src="icons/icon16.png" width="16" height="16" /> | **Monochrome UI** | Black & white minimal design |
+| <img src="icons/icon16.png" width="16" height="16" /> | **Undo 5s** | Grace period after start |
+| <img src="icons/icon16.png" width="16" height="16" /> | **Shortcut** | Ctrl+Shift+D |
+| <img src="icons/icon16.png" width="16" height="16" /> | **100% local** | No telemetry, stays in your browser |
 
 ---
 
 ## Installation
 
-**AMO:** Search **Gemini Wiper** on [addons.mozilla.org](https://addons.mozilla.org).
+**AMO:** Search **Gemini Wiper Tool** on [addons.mozilla.org](https://addons.mozilla.org).
 
 **Manual — LibreWolf / Firefox:**
 
 ```bash
-git clone https://github.com/systemdio/gemini-wiper.git
-cd gemini-wiper
-npm install && npm run build   # → dist/gemini-wiper-*.zip
+git clone https://github.com/systemdio/gemini-wiper-tool.git
+cd gemini-wiper-tool
+npm install && npm run build   # → dist/gemini-wiper-tool-*.zip
 ```
 
 `about:config` → `xpinstall.signatures.required = false` (LibreWolf) → `about:addons` → Install From File → select `.zip`.
@@ -44,11 +45,10 @@ npm install && npm run build   # → dist/gemini-wiper-*.zip
 ## Usage
 
 1. Open [gemini.google.com](https://gemini.google.com)
-2. Click the Gemini Wiper icon
-3. **Scan** → select chats → **Delete selected** or **Delete all**
-4. Overlay shows progress — **Stop** to abort
+2. Click the Gemini Wiper Tool icon
+3. **Scan** → filter → select → **Delete selected** or **Delete all**
 
-> **Warning:** Irreversible. Deleted conversations cannot be recovered.
+> **Warning:** Irreversible.
 
 ---
 
@@ -61,7 +61,7 @@ npm run build  # lint + zip
 ```
 
 ```
-gemini-wiper/
+gemini-wiper-tool/
 ├── manifest.json
 ├── background/background.js
 ├── content/{content.js, content.css}
@@ -74,4 +74,4 @@ gemini-wiper/
 
 ## License
 
-[MIT](LICENSE) © 2026 Gemini Wiper contributors
+[MIT](LICENSE) © 2026 Gemini Wiper Tool contributors

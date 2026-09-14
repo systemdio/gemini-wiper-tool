@@ -1,5 +1,5 @@
 {
-  "name": "gemini-wiper",
+  "name": "gemini-wiper-tool",
   "version": "1.0.0",
   "description": "Firefox extension to bulk-delete all your Gemini conversations",
   "private": true,
@@ -22,7 +22,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/systemdio/gemini-wiper.git"
+    "url": "https://github.com/systemdio/gemini-wiper-tool.git"
   },
   "license": "MIT",
   "allowScripts": {

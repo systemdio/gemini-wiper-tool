@@ -53,7 +53,6 @@ async function scanConversations() {
   const scrollEl = container;
   if (scrollEl) { scrollEl.scrollTop = 0; await sleep(200); }
   let stable = 0, prev = -1;
-  // scroll to bottom until no new items for 3 consecutive checks (virtualized list)
   for (let iter = 0; iter < 80; iter++) {
     document.querySelectorAll(SELECTORS.conversationItem).forEach((el,i) => {
       const t = extractTitle(el,i);
@@ -65,7 +64,6 @@ async function scanConversations() {
     if (stable >= 3 && scrollEl.scrollTop + scrollEl.clientHeight >= scrollEl.scrollHeight - 10) break;
     prev = items.length;
     scrollEl.scrollTop = scrollEl.scrollHeight;
-    // also dispatch wheel to trigger Angular virtual scroll
     scrollEl.dispatchEvent(new WheelEvent('wheel', { deltaY: 800, bubbles: true }));
     await sleep(280);
   }

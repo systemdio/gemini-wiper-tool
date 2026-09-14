@@ -1,10 +1,10 @@
 {
     "manifest_version":  3,
-    "name":  "Gemini Wiper",
+    "name":  "Gemini Wiper Tool",
     "version":  "1.0.0",
     "description":  "Bulk delete all your Gemini conversations with one click. Open source \u0026 privacy-friendly — no data leaves your browser.",
-    "author":  "Gemini Wiper contributors",
-    "homepage_url":  "https://github.com/systemdio/gemini-wiper",
+    "author":  "Gemini Wiper Tool contributors",
+    "homepage_url":  "https://github.com/systemdio/gemini-wiper-tool",
     "icons":  {
                   "16":  "icons/icon16.png",
                   "32":  "icons/icon32.png",
@@ -20,7 +20,7 @@
                                         "128":  "icons/icon128.png"
                                     },
                    "default_popup":  "popup/popup.html",
-                   "default_title":  "Gemini Wiper"
+                   "default_title":  "Gemini Wiper Tool"
                },
     "permissions":  [
                         "activeTab",
@@ -52,7 +52,7 @@
                    },
     "browser_specific_settings":  {
                                       "gecko":  {
-                                                    "id":  "gemini-wiper@firefox-extension",
+                                                    "id":  "gemini-wiper-tool@firefox-extension",
                                                     "strict_min_version":  "128.0",
                                                     "data_collection_permissions":  {
                                                                                         "required":  [
