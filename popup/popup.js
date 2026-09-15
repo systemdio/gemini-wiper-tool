@@ -14,7 +14,11 @@ const state = {
 };
 
 async function relay(msg) {
-  return browser.runtime.sendMessage({ ...msg, target: "content" });
+  try {
+    return await browser.runtime.sendMessage({ ...msg, target: "content" });
+  } catch (e) {
+    return { ok: false, error: e.message || "Connection lost" };
+  }
 }
 
 function showStatus(text, type) {

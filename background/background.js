@@ -27,14 +27,31 @@ browser.tabs.onUpdated.addListener((tabId, changeInfo) => {
   if (changeInfo.url || changeInfo.status === "complete") updateIconForTab(tabId);
 });
 
+async function forwardToContent(tabId, message) {
+  try {
+    const tab = await browser.tabs.get(tabId);
+    if (!tab?.id) return { ok: false, error: "No active tab" };
+    const tabUrl = tab.url || "";
+    if (!tabUrl.startsWith(GEMINI_ORIGIN) && !tabUrl.startsWith("https://gemini.google.")) {
+      return { ok: false, error: "Not on Gemini" };
+    }
+    if (tab.status !== "complete") {
+      return { ok: false, error: "Page still loading" };
+    }
+    const result = await browser.tabs.sendMessage(tab.id, message);
+    return result ?? { ok: false, error: "No response from content script" };
+  } catch (e) {
+    return { ok: false, error: "Content script not available" };
+  }
+}
+
 browser.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   if (message.target === "content") {
-    browser.tabs.query({ active: true, currentWindow: true }).then(([tab]) => {
-      if (!tab?.id) return sendResponse({ ok: false, error: "Aucun onglet actif" });
-      browser.tabs.sendMessage(tab.id, message)
-        .then(sendResponse)
-        .catch(e => sendResponse({ ok: false, error: e.message }));
-    });
+    (async () => {
+      const [tab] = await browser.tabs.query({ active: true, currentWindow: true });
+      const result = await forwardToContent(tab?.id, message);
+      sendResponse(result);
+    })().catch(() => sendResponse({ ok: false, error: "Forward failed" }));
     return true;
   }
 

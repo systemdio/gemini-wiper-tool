@@ -144,34 +144,53 @@ const OVERLAY_ID='gc-overlay';
 function getOverlay(){ let el=document.getElementById(OVERLAY_ID); if(!el){ el=document.createElement('div'); el.id=OVERLAY_ID; document.body.appendChild(el);} return el; }
 const tx=s=>document.createTextNode(String(s));
 function mk(tag,cls,...kids){ const e=document.createElement(tag); if(cls) e.className=cls; kids.forEach(k=>e.appendChild(typeof k==='string'?tx(k):k)); return e; }
+function mkSVG(name){
+  const ns='http://www.w3.org/2000/svg';
+  const svgs={
+    check: '<path d="M20 6L9 17l-5-5"/>',
+    warn: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>',
+    stop: '<rect x="6" y="6" width="12" height="12" rx="2"/>',
+    trash: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M21 15l-4-4h-6l-4 4"/>'
+  };
+  const svg=document.createElementNS(ns,'svg');
+  svg.setAttribute('viewBox','0 0 24 24');
+  svg.setAttribute('width','18'); svg.setAttribute('height','18');
+  svg.setAttribute('fill','none'); svg.setAttribute('stroke','currentColor');
+  svg.setAttribute('stroke-width','2'); svg.setAttribute('stroke-linecap','round');
+  svg.setAttribute('stroke-linejoin','round');
+  const path=document.createElementNS(ns,'path');
+  path.setAttribute('d',svgs[name]||'');
+  svg.appendChild(path);
+  return svg;
+}
 function showOverlay(state){
   const o=getOverlay(); if(state.hidden){ o.style.display='none'; return;} o.style.display='';
   while(o.firstChild) o.removeChild(o.firstChild);
   const card=mk('div','gc-card');
   const prog = state.showProgress ? Math.min(100, state.deleted ? 50 : 0) : 0;
-  card.appendChild(mk('div','gc-header', mk('span','gc-icon','🗑️'), mk('span','gc-name','Gemini Cleaner')));
+  card.appendChild(mk('div','gc-header', mk('span','gc-icon', mkSVG('trash')), mk('span','gc-name','Gemini Wiper')));
   card.appendChild(mk('div',`gc-msg ${state.status}`, state.message));
   if(state.showProgress){
     const bar=mk('div','gc-bar'); const fill=mk('div','gc-bar-fill'); fill.style.width = isRunning ? '100%' : '100%'; bar.appendChild(fill);
     if(isRunning) fill.classList.add('gc-bar-anim');
     card.appendChild(bar);
     const row=mk('div','gc-stats');
-    const ds=mk('span',null,'✓ '); ds.appendChild(mk('strong',null,String(state.deleted))); row.appendChild(ds);
-    if((state.errors??0)>0){ const es=mk('span',null,'  ⚠ '); es.appendChild(mk('strong',null,String(state.errors))); row.appendChild(es); }
+     const ds=mk('span',null,mkSVG('check')); ds.appendChild(mk('strong',null,String(state.deleted))); row.appendChild(ds);
+     if((state.errors??0)>0){ const es=mk('span',null,mkSVG('warn')); es.appendChild(mk('strong',null,String(state.errors))); row.appendChild(es); }
     card.appendChild(row);
   }
-  if(state.showStop){ const b=mk('button','gc-btn gc-stop','■ Stop'); b.onclick=()=>{ stopRequested=true; const m=document.querySelector('#gc-overlay .gc-msg'); if(m) m.textContent='Stopping…'; }; card.appendChild(b); }
+  if(state.showStop){      const b=mk('button','gc-btn gc-stop', mkSVG('stop'), ' Stop'); b.onclick=()=>{ stopRequested=true; const m=document.querySelector('#gc-overlay .gc-msg'); if(m) m.textContent='Stopping…'; }; card.appendChild(b); }
   if(state.showClose){ const b=mk('button','gc-btn gc-close','Close'); b.onclick=()=>showOverlay({hidden:true}); card.appendChild(b); }
   o.appendChild(card);
 }
 function updateOverlayStats(){
-  const m=document.querySelector('#gc-overlay .gc-msg');
-  if(m) m.textContent=`Deleting… (${deletedCount})`;
-  const s=document.querySelector('#gc-overlay .gc-stats');
-  if(!s) return; while(s.firstChild) s.removeChild(s.firstChild);
-  const ds=mk('span',null,'✓ '); ds.appendChild(mk('strong',null,String(deletedCount))); s.appendChild(ds);
-  if(errorCount>0){ const es=mk('span',null,'  ⚠ '); es.appendChild(mk('strong',null,String(errorCount))); s.appendChild(es); }
-}
+   const m=document.querySelector('#gc-overlay .gc-msg');
+   if(m) m.textContent=`Deleting… (${deletedCount})`;
+   const s=document.querySelector('#gc-overlay .gc-stats');
+   if(!s) return; while(s.firstChild) s.removeChild(s.firstChild);
+   const ds=mk('span',null,mkSVG('check')); ds.appendChild(mk('strong',null,String(deletedCount))); s.appendChild(ds);
+   if(errorCount>0){ const es=mk('span',null,mkSVG('warn')); es.appendChild(mk('strong',null,String(errorCount))); s.appendChild(es); }
+ }
 
 browser.runtime.onMessage.addListener((message,_sender,sendResponse)=>{
   switch(message.type){
