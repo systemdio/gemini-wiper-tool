@@ -22,6 +22,7 @@ const INCLUDE = [
   "content/**",
   "popup/**",
   "icons/*.png",
+  "icons/Gemini Looping.gif",
 ];
 
 // Files and patterns to exclude

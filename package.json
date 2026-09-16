@@ -1,6 +1,6 @@
 {
   "name": "gemini-wiper-tool",
-  "version": "1.0.0",
+  "version": "1.2.1",
   "description": "Firefox extension to bulk-delete all your Gemini conversations",
   "private": true,
   "type": "commonjs",

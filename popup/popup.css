@@ -21,6 +21,7 @@ header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
 .setting-row select,.setting-row input{accent-color:var(--accent-start)}
 .setting-row select{background:var(--surf0);color:var(--text);border:1px solid rgba(123,58,237,.15);border-radius:var(--r);padding:4px 8px}
 .setting-hint{font-size:11px;color:var(--ov0)}
+.info-msg{margin-bottom:14px;text-align:center;line-height:1.5}
 .tabs{display:flex;gap:4px;margin-bottom:10px;background:var(--mantle);border-radius:var(--r);padding:4px}
 .tab{flex:1;background:transparent;border:none;border-radius:6px;color:var(--sub);font-family:inherit;font-size:12.5px;font-weight:700;padding:8px;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;gap:6px}
 .tab.active{background:var(--surf1);color:#fff}
