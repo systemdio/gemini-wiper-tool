@@ -1,48 +1,48 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Gemini Wiper</title><link rel="stylesheet" href="popup.css"/></head><body>
 <div class="app">
-  <header><img src="../icons/icon48.png" class="logo"/><div class="header-text"><h1>Gemini Wiper</h1><p>Bulk delete for Gemini</p></div><button id="btn-settings" class="icon-btn" title="Settings">⚙</button></header>
-  <div id="wrong-page" class="view hidden"><p class="info-msg">Open <strong>gemini.google.com</strong> to use this extension.</p><button id="btn-go" class="btn btn-primary">Open Gemini ↗</button></div>
+  <header><img src="../icons/Gemini Looping.gif" class="logo"/><div class="header-text"><h1>Gemini Wiper</h1><p>Bulk delete for Gemini</p></div><button id="btn-settings" class="icon-btn" title="Settings"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></button></header>
+  <div id="wrong-page" class="view hidden"><p class="info-msg">Open <strong>gemini.google.com</strong> to use this extension.</p><button id="btn-go" class="btn btn-primary">Open Gemini <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></button></div>
   <div id="main" class="view hidden">
-    <div class="tabs"><button class="tab active" data-tab="conv">💬 Chats</button><button class="tab" data-tab="lib">📚 Library</button></div>
+    <div class="tabs"><button class="tab active" data-tab="conv"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Chats</button><button class="tab" data-tab="lib"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> Library</button></div>
     <div id="settings-panel" class="settings hidden">
-      <label class="setting-row"><span>Speed</span><select id="sel-speed"><option value="0.6">⚡ Fast</option><option value="1" selected>⏱ Balanced</option><option value="1.6">🐢 Safe</option></select></label>
+      <label class="setting-row"><span>Speed</span><select id="sel-speed"><option value="0.6"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Fast</option><option value="1" selected><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Balanced</option><option value="1.6"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Safe</option></select></label>
       <label class="setting-row"><span>Delay</span><input id="rng-delay" type="range" min="50" max="400" value="150" step="10"><span id="lbl-delay">150ms</span></label>
       <p class="setting-hint">Faster = less reliable on slow connections.</p>
     </div>
     <div id="pane-conv" class="pane">
       <div class="toolbar">
-        <button id="btn-scan-conv" class="btn btn-sm"><svg viewBox="0 0 24 24" width="14" height="14"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15 15 L20 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Scan</button>
+        <button id="btn-scan-conv" class="btn btn-sm"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Scan</button>
         <div class="sel-actions">
-          <button id="btn-all-conv" class="icon-text-btn" title="Select all"><svg viewBox="0 0 24 24" width="14" height="14"><rect x="3" y="3" width="18" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M7 12 L11 16 L17 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> All</button>
+          <button id="btn-all-conv" class="icon-text-btn" title="Select all"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7 12 L11 16 L17 8"/></svg> All</button>
           <span class="sep">·</span>
-          <button id="btn-none-conv" class="icon-text-btn" title="Select none"><svg viewBox="0 0 24 24" width="14" height="14"><rect x="3" y="3" width="18" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 8 L16 16 M16 8 L8 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> None</button>
+          <button id="btn-none-conv" class="icon-text-btn" title="Select none"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="8" y1="8" x2="16" y2="16"/><line x1="16" y1="8" x2="8" y2="16"/></svg> None</button>
         </div>
         <span id="count-conv" class="count"></span>
       </div>
       <div id="conv-list" class="item-list"><p class="placeholder">Click Scan to load your conversations.</p></div>
       <div class="action-bar">
-        <button id="btn-del-sel-conv" class="btn btn-danger" disabled><svg viewBox="0 0 24 24" width="14" height="14"><path d="M4 7 H20 M9 7 V4 H15 V7 M10 11 V17 M14 11 V17 M5 7 L6 20 H18 L19 7 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg> Delete selected</button>
-        <button id="btn-del-all-conv" class="btn btn-ghost" title="Delete all"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M4 7 H20 M9 7 V4 H15 V7 M10 11 V17 M14 11 V17 M5 7 L6 20 H18 L19 7 Z" fill="none" stroke="currentColor" stroke-width="2"/></svg> Delete all</button>
+        <button id="btn-del-sel-conv" class="btn btn-danger" disabled><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg> Delete selected</button>
+        <button id="btn-del-all-conv" class="btn btn-ghost" title="Delete all"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Delete all</button>
       </div>
     </div>
     <div id="pane-lib" class="pane hidden">
       <div class="toolbar">
-        <button id="btn-scan-lib" class="btn btn-sm"><svg viewBox="0 0 24 24" width="14" height="14"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15 15 L20 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Scan</button>
+        <button id="btn-scan-lib" class="btn btn-sm"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Scan</button>
         <div class="sel-actions">
-          <button id="btn-all-lib" class="icon-text-btn"><svg viewBox="0 0 24 24" width="14" height="14"><rect x="3" y="3" width="18" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M7 12 L11 16 L17 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> All</button>
+          <button id="btn-all-lib" class="icon-text-btn"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7 12 L11 16 L17 8"/></svg> All</button>
           <span class="sep">·</span>
-          <button id="btn-none-lib" class="icon-text-btn"><svg viewBox="0 0 24 24" width="14" height="14"><rect x="3" y="3" width="18" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 8 L16 16 M16 8 L8 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> None</button>
+          <button id="btn-none-lib" class="icon-text-btn"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="8" y1="8" x2="16" y2="16"/><line x1="16" y1="8" x2="8" y2="16"/></svg> None</button>
         </div>
         <span id="count-lib" class="count"></span>
       </div>
       <div id="lib-list" class="item-list"><p class="placeholder">Go to Gemini Library then click Scan.</p></div>
       <div class="action-bar">
-        <button id="btn-del-sel-lib" class="btn btn-danger" disabled><svg viewBox="0 0 24 24" width="14" height="14"><path d="M4 7 H20 M9 7 V4 H15 V7 M10 11 V17 M14 11 V17 M5 7 L6 20 H18 L19 7 Z" fill="none" stroke="currentColor" stroke-width="2"/></svg> Delete selected</button>
-        <button id="btn-del-all-lib" class="btn btn-ghost"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M4 7 H20 M9 7 V4 H15 V7 M10 11 V17 M14 11 V17 M5 7 L6 20 H18 L19 7 Z" fill="none" stroke="currentColor" stroke-width="2"/></svg> Delete all</button>
+        <button id="btn-del-sel-lib" class="btn btn-danger" disabled><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Delete selected</button>
+        <button id="btn-del-all-lib" class="btn btn-ghost"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Delete all</button>
       </div>
     </div>
     <div id="status-bar" class="status-bar hidden"></div>
-    <button id="btn-stop" class="btn btn-stop hidden">■ Stop</button>
+    <button id="btn-stop" class="btn btn-stop hidden"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="6" y="6" width="12" height="12" rx="1"/></svg> Stop</button>
   </div>
 </div>
 <footer><a href="https://github.com/systemdio/gemini-wiper" target="_blank">GitHub</a><span class="sep">·</span><span id="ver"></span></footer>

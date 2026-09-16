@@ -13,8 +13,27 @@ const state = {
   isRunning: false,
 };
 
+let activeTabId = null;
+
 async function relay(msg) {
-  return browser.runtime.sendMessage({ ...msg, target: "content" });
+  try {
+    const [tab] = await browser.tabs.query({ active: true, currentWindow: true });
+    activeTabId = tab?.id;
+    if (!activeTabId) return { ok: false, error: "No active tab" };
+    if (tab.status !== "complete") return { ok: false, error: "Page still loading" };
+    return await browser.tabs.sendMessage(activeTabId, { ...msg, target: "content" });
+  } catch (e) {
+    return { ok: false, error: e.message || "Connection lost" };
+  }
+}
+
+async function relayWithRetry(msg, retries = 2) {
+  for (let i = 0; i <= retries; i++) {
+    const r = await relay(msg);
+    if (r?.ok || !r?.error?.includes("Connection lost")) return r;
+    await new Promise(r => setTimeout(r, 500 * (i + 1)));
+  }
+  return await relay(msg);
 }
 
 function showStatus(text, type) {
@@ -111,7 +130,7 @@ function selectNone(type) {
 async function scanConversations() {
   showStatus("Scanning conversations…", "running");
   try {
-    const r = await relay({ type: "SCAN_CONVERSATIONS" });
+    const r = await relayWithRetry({ type: "SCAN_CONVERSATIONS" });
     if (r?.ok) {
       state.conversations = r.items;
       state.selectedConv.clear();
@@ -128,7 +147,7 @@ async function scanConversations() {
 async function scanLibrary() {
   showStatus("Scanning library…", "running");
   try {
-    const r = await relay({ type: "SCAN_LIBRARY" });
+    const r = await relayWithRetry({ type: "SCAN_LIBRARY" });
     if (r?.ok) {
       state.library = r.items;
       state.selectedLib.clear();
@@ -150,7 +169,7 @@ async function deleteSelected(type) {
   setRunning(true);
   showStatus(`Deleting ${titles.length} item${titles.length>1?"s":""}…`, "running");
   try {
-    await relay({ type: "START_DELETION", selectedTitles: titles, target: type === "conv" ? "conversations" : "library" });
+    await relayWithRetry({ type: "START_DELETION", selectedTitles: titles, target: type === "conv" ? "conversations" : "library" });
     showStatus("Deletion started — see overlay on page.", "running");
   } catch (e) { showStatus(e.message,"error"); setRunning(false); }
 }
@@ -158,7 +177,7 @@ async function deleteAll(type) {
   setRunning(true);
   showStatus(`Deleting all ${type==="conv"?"chats":"library"}…`, "running");
   try {
-    await relay({ type: "START_DELETION", selectedTitles: null, target: type === "conv" ? "conversations" : "library" });
+    await relayWithRetry({ type: "START_DELETION", selectedTitles: null, target: type === "conv" ? "conversations" : "library" });
     showStatus("Deletion started — see overlay on page.", "running");
   } catch (e) { showStatus(e.message,"error"); setRunning(false); }
 }
@@ -195,7 +214,7 @@ async function init() {
   $("main").classList.remove("hidden");
 
   try {
-    const status = await relay({ type: "GET_STATUS" });
+    const status = await relayWithRetry({ type: "GET_STATUS" });
     if (status?.isRunning) { setRunning(true); showStatus("Deleting…", "running"); }
   } catch (_) {}
   const saved = await browser.storage.local.get("lastRun").catch(()=>({}));
@@ -219,7 +238,7 @@ $("btn-del-all-conv").addEventListener("click", () => deleteAll("conv"));
 $("btn-del-sel-lib").addEventListener("click", () => deleteSelected("lib"));
 $("btn-del-all-lib").addEventListener("click", () => deleteAll("lib"));
 $("btn-stop").addEventListener("click", async () => {
-  try { await relay({ type: "STOP_DELETION" }); showStatus("Stopping…", "running"); } catch(_){}
+  try { await relayWithRetry({ type: "STOP_DELETION" }); showStatus("Stopping…", "running"); } catch(_){}
 });
 browser.runtime.onMessage.addListener(msg => {
   if (msg.type === "DELETION_COMPLETE") {

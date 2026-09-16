@@ -8,7 +8,13 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
-## [1.0.0] — 2026-09-14
+## [1.2.1] — 2026-09-17
+
+### Fixed
+- Fixed "Could not establish connection" error by switching to `browser.tabs.sendMessage` with explicit tab targeting and retry logic.
+- Added spacing between info text and "Open Gemini" button on wrong-page view.
+
+## [1.2.0] — 2026-09-16
 
 ### Added
 - Initial release.
